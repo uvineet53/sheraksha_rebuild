@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.women_safety">
+    package="com.scivic.sheraksha">
    <application
         android:label="women_safety"
         android:icon="@mipmap/ic_launcher">

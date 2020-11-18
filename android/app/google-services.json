@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "301489697840",
+    "firebase_url": "https://sheraksha-9ae75.firebaseio.com",
+    "project_id": "sheraksha-9ae75",
+    "storage_bucket": "sheraksha-9ae75.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:301489697840:android:9408c8c186524def76a9f5",
+        "android_client_info": {
+          "package_name": "com.scivic.sheraksha"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "301489697840-2chdei6omgcktao5mqa1ccmp7kc7od9c.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAOyiNQUOAP47TTtdHUY0OfnWtM0xLR_n8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "301489697840-2chdei6omgcktao5mqa1ccmp7kc7od9c.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
