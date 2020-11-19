@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:twilio_flutter/twilio_flutter.dart';
-import 'package:lit_firebase_auth/lit_firebase_auth.dart';
 
 class MyHomeScreen extends StatefulWidget {
   @override
@@ -34,20 +33,9 @@ class _MyHomeScreenState extends State<MyHomeScreen> {
         centerTitle: true,
       ),
       body: Center(
-        child: Column(
-          children: [
-            Text(
-              'Press the button to send SMS.',
-              style: TextStyle(color: Colors.black, fontSize: 16),
-            ),
-            RaisedButton.icon(
-              icon: Icon(Icons.lock_outline),
-              onPressed: () {
-                context.signOut();
-              },
-              label: Text("Sign out"),
-            )
-          ],
+        child: Text(
+          'Press the button to send SMS.',
+          style: TextStyle(color: Colors.black, fontSize: 16),
         ),
       ),
       floatingActionButton: FloatingActionButton(
