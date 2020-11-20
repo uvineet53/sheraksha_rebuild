@@ -28,6 +28,7 @@ class _ContactsTabState extends State<ContactsTab>
   Widget build(BuildContext context) {
     return Scaffold(
       floatingActionButton: FloatingActionButton(
+        backgroundColor: Palette.darkBlue,
         child: Icon(Icons.add),
         onPressed: () => Navigator.of(context).push(MaterialPageRoute(
           builder: (context) => ContactSave(),
@@ -46,17 +47,65 @@ class _ContactsTabState extends State<ContactsTab>
             child: Column(
               children: [
                 SizedBox(
-                  height: 25,
+                  height: 35,
                 ),
                 LoginTitle(title: "Contacts"),
                 Lottie.asset("assets/contact.json"),
-                Container(
-                  child: Container(),
-                )
+                SizedBox(
+                  height: 200,
+                  child: StreamBuilder(
+                      stream: FirebaseFirestore.instance
+                          .collection('contacts')
+                          .snapshots(),
+                      builder: (context, snapshot) {
+                        if (!snapshot.hasData) return const Text('loading....');
+                        return ListView.builder(
+                          itemExtent: 80.0,
+                          itemCount: snapshot.data.documents.length,
+                          itemBuilder: (context, index) => _buildListItem(
+                              context, snapshot.data.documents[index]),
+                        );
+                      }
+
+// This trailing comma makes auto-formatting nicer for build methods.
+                      ),
+                ),
               ],
             ),
           ),
         ],
+      ),
+    );
+  }
+
+  Widget _buildListItem(BuildContext context, DocumentSnapshot document) {
+    return ListTile(
+      title: Container(
+        padding: EdgeInsets.all(10),
+        decoration: BoxDecoration(
+          color: Colors.grey[300],
+          borderRadius: BorderRadius.circular(15),
+        ),
+        child: Row(
+          children: [
+            Expanded(
+              child: Text(
+                document['name'],
+                style: Theme.of(context).textTheme.headline5,
+              ),
+            ),
+            Container(
+              decoration: const BoxDecoration(
+                color: Color(0xffdd),
+              ),
+              padding: const EdgeInsets.all(10.0),
+              child: Text(
+                document['number'],
+                style: Theme.of(context).textTheme.headline6,
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

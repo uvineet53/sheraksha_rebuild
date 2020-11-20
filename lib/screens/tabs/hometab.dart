@@ -1,4 +1,7 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:lottie/lottie.dart';
 import 'package:twilio_flutter/twilio_flutter.dart';
 import 'package:women_safety/config/palette.dart';
@@ -20,7 +23,7 @@ class _HometabState extends State<Hometab> with SingleTickerProviderStateMixin {
   void initState() {
     twilioFlutter = TwilioFlutter(
         accountSid: 'AC22703901849f7bfffb9203e85109ef87',
-        authToken: '225f3937348182eb17417a4f9e65a06f',
+        authToken: 'e8cb69ff245e156afca5c8c679ffe437',
         twilioNumber: '+12186561552');
 
     super.initState();
@@ -56,35 +59,58 @@ class _HometabState extends State<Hometab> with SingleTickerProviderStateMixin {
                     fontWeight: FontWeight.w600,
                   ),
                 ),
-                Row(
-                  children: [
-                    Expanded(
-                      child: InkWell(
-                        onTap: sendSms,
-                        child: Container(
-                          margin: EdgeInsets.symmetric(
-                              horizontal: 40, vertical: 10),
-                          padding: EdgeInsets.all(20),
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(15),
-                            color: Palette.orange,
-                          ),
-                          child: Text(
-                            "SOS",
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                              fontFamily: "Sans Serif",
-                              color: Colors.white,
-                              fontSize: 25,
-                              fontWeight: FontWeight.w900,
-                              letterSpacing: 5,
+                StreamBuilder(
+                    stream: FirebaseFirestore.instance
+                        .collection('contacts')
+                        .snapshots(),
+                    builder: (context, snapshot) {
+                      if (!snapshot.hasData)
+                        return const Text('Retrieving Data...');
+                      return Row(
+                        children: [
+                          Expanded(
+                            child: InkWell(
+                              onTap: () async {
+                                Position position =
+                                    await Geolocator.getCurrentPosition(
+                                        desiredAccuracy: LocationAccuracy.high);
+                                int totalContacts =
+                                    snapshot.data.documents.length;
+
+                                for (int i = 0; i < totalContacts; i++) {
+                                  DocumentSnapshot document =
+                                      snapshot.data.documents[i];
+                                  twilioFlutter.sendSMS(
+                                      toNumber: document["number"],
+                                      messageBody:
+                                          'Hi, I am feeling unsafe. Could you please call me back? My current co-ordinates are: ${position.latitude},${position.longitude}');
+                                }
+                              },
+                              child: Container(
+                                margin: EdgeInsets.symmetric(
+                                    horizontal: 40, vertical: 10),
+                                padding: EdgeInsets.all(20),
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(15),
+                                  color: Palette.orange,
+                                ),
+                                child: Text(
+                                  "SOS",
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                    fontFamily: "Sans Serif",
+                                    color: Colors.white,
+                                    fontSize: 25,
+                                    fontWeight: FontWeight.w900,
+                                    letterSpacing: 5,
+                                  ),
+                                ),
+                              ),
                             ),
                           ),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
+                        ],
+                      );
+                    }),
               ],
             ),
           ),
