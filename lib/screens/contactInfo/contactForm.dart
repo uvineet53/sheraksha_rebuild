@@ -1,13 +1,17 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
+import 'package:women_safety/config/palette.dart';
 
-import 'customButton.dart';
+TextEditingController _nameController = new TextEditingController();
 
-class SignUpPage extends StatelessWidget {
+TextEditingController _numberController = new TextEditingController();
+
+class ContactSave extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var scrWidth = MediaQuery.of(context).size.width;
     var scrHeight = MediaQuery.of(context).size.height;
-
     return SafeArea(
       child: Scaffold(
         body: SingleChildScrollView(
@@ -16,17 +20,21 @@ class SignUpPage extends StatelessWidget {
             children: [
               Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
+                  SizedBox(
+                    height: 50,
+                  ),
                   Align(
                     alignment: Alignment.centerLeft,
                     child: Padding(
                       padding: const EdgeInsets.only(left: 40.0, top: 40),
                       child: Text(
-                        'Sign Up',
+                        'Add Contact',
                         style: TextStyle(
                           fontFamily: 'Cardo',
                           fontSize: 35,
-                          color: Color(0xff0C2551),
+                          color: Palette.darkBlue,
                           fontWeight: FontWeight.w900,
                         ),
                       ),
@@ -38,7 +46,7 @@ class SignUpPage extends StatelessWidget {
                     child: Padding(
                       padding: const EdgeInsets.only(left: 40, top: 5),
                       child: Text(
-                        'Sign up with',
+                        'Contact Details',
                         style: TextStyle(
                           fontFamily: 'Nunito Sans',
                           fontSize: 15,
@@ -52,29 +60,7 @@ class SignUpPage extends StatelessWidget {
                   SizedBox(
                     height: 30,
                   ),
-                  //
-                  Container(
-                    margin: EdgeInsets.only(left: 38),
-                    child: Row(
-                      children: [
-                        Neu_button(
-                          char: 'G',
-                        ),
-                        SizedBox(
-                          width: 25,
-                        ),
-                        Neu_button(
-                          char: 'f',
-                        )
-                      ],
-                    ),
-                  ),
-                  //
 
-                  SizedBox(
-                    height: 30,
-                  ),
-                  //
                   MyCustomInputBox(
                     label: 'Name',
                     inputHint: 'John',
@@ -85,17 +71,8 @@ class SignUpPage extends StatelessWidget {
                   ),
                   //
                   MyCustomInputBox(
-                    label: 'Email',
-                    inputHint: 'example@example.com',
-                  ),
-                  //
-                  SizedBox(
-                    height: 30,
-                  ),
-                  //
-                  MyCustomInputBox(
-                    label: 'Password',
-                    inputHint: '8+ Characters,1 Capital letter',
+                    label: 'Phone Number',
+                    inputHint: '+917003XXXXXX',
                   ),
                   //
                   SizedBox(
@@ -103,7 +80,7 @@ class SignUpPage extends StatelessWidget {
                   ),
                   //
                   Text(
-                    "Creating an account means you're okay with\nour Terms of Service and Privacy Policy",
+                    "Saving a contact means you're okay with\nour Terms of Service and Privacy Policy",
                     style: TextStyle(
                       fontFamily: 'Product Sans',
                       fontSize: 15.5,
@@ -112,48 +89,27 @@ class SignUpPage extends StatelessWidget {
                     ),
                     //
                   ),
-                  Container(
-                    margin: EdgeInsets.symmetric(vertical: 20),
-                    width: scrWidth * 0.85,
-                    height: 75,
-                    decoration: BoxDecoration(
-                      color: Color(0xff0962ff),
-                      borderRadius: BorderRadius.circular(20),
-                    ),
-                    child: Center(
-                      child: Text(
-                        'Create an Account',
-                        style: TextStyle(
-                          fontFamily: 'ProductSans',
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.white70,
+                  InkWell(
+                    onTap: () => saveContact(context),
+                    child: Container(
+                      margin: EdgeInsets.symmetric(vertical: 20),
+                      width: scrWidth * 0.85,
+                      height: 75,
+                      decoration: BoxDecoration(
+                        color: Palette.lightBlue,
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                      child: Center(
+                        child: Text(
+                          'Save Contact',
+                          style: TextStyle(
+                            fontFamily: 'ProductSans',
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white,
+                          ),
                         ),
                       ),
-                    ),
-                  ),
-                  RichText(
-                    text: TextSpan(
-                      children: [
-                        TextSpan(
-                          text: 'Already have an account? ',
-                          style: TextStyle(
-                            fontFamily: 'Product Sans',
-                            fontSize: 15,
-                            fontWeight: FontWeight.bold,
-                            color: Color(0xff8f9db5).withOpacity(0.45),
-                          ),
-                        ),
-                        TextSpan(
-                          text: 'Sign In',
-                          style: TextStyle(
-                            fontFamily: 'Product Sans',
-                            fontSize: 15,
-                            fontWeight: FontWeight.bold,
-                            color: Color(0xff90b7ff),
-                          ),
-                        )
-                      ],
                     ),
                   ),
                 ],
@@ -161,7 +117,7 @@ class SignUpPage extends StatelessWidget {
               ClipPath(
                 clipper: OuterClippedPart(),
                 child: Container(
-                  color: Color(0xff0962ff),
+                  color: Palette.lightBlue,
                   width: scrWidth,
                   height: scrHeight,
                 ),
@@ -170,7 +126,7 @@ class SignUpPage extends StatelessWidget {
               ClipPath(
                 clipper: InnerClippedPart(),
                 child: Container(
-                  color: Color(0xff0c2551),
+                  color: Palette.darkBlue,
                   width: scrWidth,
                   height: scrHeight,
                 ),
@@ -181,40 +137,21 @@ class SignUpPage extends StatelessWidget {
       ),
     );
   }
-}
 
-class Neu_button extends StatelessWidget {
-  Neu_button({this.char});
-  String char;
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      width: 58,
-      height: 58,
-      decoration: BoxDecoration(
-        color: Color(0xffffffff),
-        borderRadius: BorderRadius.circular(13),
-        boxShadow: [
-          BoxShadow(
-            offset: Offset(12, 11),
-            blurRadius: 26,
-            color: Color(0xffaaaaaa).withOpacity(0.1),
-          )
-        ],
-      ),
-      //
-      child: Center(
-        child: Text(
-          char,
-          style: TextStyle(
-            fontFamily: 'ProductSans',
-            fontSize: 29,
-            fontWeight: FontWeight.bold,
-            color: Color(0xff0962FF),
-          ),
-        ),
-      ),
-    );
+  saveContact(BuildContext context) async {
+    try {
+      await FirebaseFirestore.instance.collection("contacts").add(
+          {"name": _nameController.text, "number": _numberController.text});
+      print("Success!");
+      _nameController.text = "";
+      _numberController.text = "";
+      Navigator.of(context).pop();
+    } catch (e) {
+      _nameController.text = "";
+      _numberController.text = "";
+      print(e);
+      Navigator.of(context).pop();
+    }
   }
 }
 
@@ -257,5 +194,97 @@ class InnerClippedPart extends CustomClipper<Path> {
   @override
   bool shouldReclip(CustomClipper<Path> oldClipper) {
     return true;
+  }
+}
+
+class MyCustomInputBox extends StatefulWidget {
+  String label;
+  String inputHint;
+
+  MyCustomInputBox({this.label, this.inputHint});
+  @override
+  _MyCustomInputBoxState createState() => _MyCustomInputBoxState();
+}
+
+class _MyCustomInputBoxState extends State<MyCustomInputBox> {
+  bool isSubmitted = false;
+  final checkBoxIcon = 'assets/checkbox.svg';
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        Align(
+          alignment: Alignment.centerLeft,
+          child: Padding(
+            padding: const EdgeInsets.only(left: 50.0, bottom: 8),
+            child: Text(
+              widget.label,
+              style: TextStyle(
+                fontFamily: 'Product Sans',
+                fontSize: 15,
+                color: Color(0xff8f9db5),
+              ),
+            ),
+          ),
+        ),
+        //
+        Padding(
+          padding: const EdgeInsets.fromLTRB(40, 0, 40, 15),
+          child: TextFormField(
+            controller: widget.label == "Phone Number"
+                ? _numberController
+                : _nameController,
+            onChanged: (value) {
+              setState(() {
+                isSubmitted = true;
+              });
+            },
+            style: TextStyle(
+                fontSize: 19,
+                color: Color(0xff0962ff),
+                fontWeight: FontWeight.bold),
+            decoration: InputDecoration(
+              hintText: widget.inputHint,
+              hintStyle: TextStyle(
+                  fontSize: 18,
+                  color: Colors.grey[350],
+                  fontWeight: FontWeight.w600),
+              contentPadding:
+                  EdgeInsets.symmetric(vertical: 27, horizontal: 25),
+              focusColor: Color(0xff0962ff),
+              focusedBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(20),
+                borderSide: BorderSide(color: Color(0xff0962ff)),
+              ),
+              enabledBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(20),
+                borderSide: BorderSide(
+                  color: Colors.grey[350],
+                ),
+              ),
+              suffixIcon: isSubmitted == true
+                  // will turn the visibility of the 'checkbox' icon
+                  // ON or OFF based on the condition we set before
+                  ? Visibility(
+                      visible: true,
+                      child: Padding(
+                        padding: const EdgeInsets.only(right: 8.0),
+                        child: SvgPicture.asset(
+                          checkBoxIcon,
+                          height: 0.2,
+                        ),
+                      ),
+                    )
+                  : Visibility(
+                      visible: false,
+                      child: SvgPicture.asset(checkBoxIcon),
+                    ),
+            ),
+          ),
+        ),
+        //
+      ],
+    );
   }
 }

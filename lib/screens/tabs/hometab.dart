@@ -22,8 +22,7 @@ class _HometabState extends State<Hometab> with SingleTickerProviderStateMixin {
         accountSid: 'AC22703901849f7bfffb9203e85109ef87',
         authToken: '225f3937348182eb17417a4f9e65a06f',
         twilioNumber: '+12186561552');
-    _controller =
-        AnimationController(vsync: this, duration: const Duration(seconds: 2));
+
     super.initState();
   }
 
@@ -37,13 +36,6 @@ class _HometabState extends State<Hometab> with SingleTickerProviderStateMixin {
   Widget build(BuildContext context) {
     return Stack(
       children: [
-        SizedBox.expand(
-          child: CustomPaint(
-            painter: BackgroundPainter(
-              animation: _controller,
-            ),
-          ),
-        ),
         Center(
           child: SafeArea(
             child: Column(

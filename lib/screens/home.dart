@@ -1,15 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_snake_navigationbar/flutter_snake_navigationbar.dart';
-import 'package:lit_firebase_auth/lit_firebase_auth.dart';
-import 'package:lottie/lottie.dart';
-import 'package:twilio_flutter/twilio_flutter.dart';
 import 'package:women_safety/config/constants.dart';
 import 'package:women_safety/config/palette.dart';
 import 'package:women_safety/screens/tabs/about.dart';
 import 'package:women_safety/screens/tabs/contacts.dart';
 import 'package:women_safety/screens/tabs/hometab.dart';
-
-import 'auth/auth.dart';
+import 'auth/widgets/background_painter.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key key}) : super(key: key);
@@ -22,8 +18,18 @@ class HomeScreen extends StatefulWidget {
   _HomeScreenState createState() => _HomeScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen> {
+class _HomeScreenState extends State<HomeScreen>
+    with SingleTickerProviderStateMixin {
   int _selectedItemPosition = 1;
+  AnimationController _controller;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    _controller =
+        AnimationController(vsync: this, duration: const Duration(seconds: 2));
+    super.initState();
+  }
 
   List<Widget> widgetList = [
     ContactsTab(),
@@ -33,7 +39,18 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: widgetList[_selectedItemPosition],
+        body: Stack(
+          children: [
+            SizedBox.expand(
+              child: CustomPaint(
+                painter: BackgroundPainter(
+                  animation: _controller,
+                ),
+              ),
+            ),
+            widgetList[_selectedItemPosition],
+          ],
+        ),
         bottomNavigationBar: SnakeNavigationBar.color(
           behaviour: snakeBarStyle,
           snakeShape: SnakeShape.circle,
