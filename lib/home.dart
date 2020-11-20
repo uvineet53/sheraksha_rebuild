@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lottie/lottie.dart';
 import 'package:twilio_flutter/twilio_flutter.dart';
 
 class MyHomeScreen extends StatefulWidget {
@@ -8,6 +9,7 @@ class MyHomeScreen extends StatefulWidget {
 
 class _MyHomeScreenState extends State<MyHomeScreen> {
   TwilioFlutter twilioFlutter;
+
   @override
   void initState() {
     twilioFlutter = TwilioFlutter(
@@ -27,21 +29,21 @@ class _MyHomeScreenState extends State<MyHomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: AppBar(
-        automaticallyImplyLeading: false,
-        title: Text("Safety"),
-        centerTitle: true,
-      ),
       body: Center(
-        child: Text(
-          'Press the button to send SMS.',
-          style: TextStyle(color: Colors.black, fontSize: 16),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Lottie.asset("assets/main.json"),
+            Text(
+              'Press the button to send SMS.',
+              style: TextStyle(color: Colors.black, fontSize: 16),
+            ),
+            RaisedButton(
+              onPressed: sendSms,
+              child: Text("SOS"),
+            ),
+          ],
         ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: sendSms,
-        tooltip: 'Send Sms',
-        child: Icon(Icons.send),
       ),
     );
   }
