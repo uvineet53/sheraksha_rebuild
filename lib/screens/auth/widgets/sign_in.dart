@@ -50,7 +50,11 @@ class SignIn extends StatelessWidget {
                     label: 'Sign in',
                     isLoading: isSubmitting,
                     onPressed: () {
-                      context.signInWithEmailAndPassword();
+                      try {
+                        context.signInWithEmailAndPassword();
+                      } catch (e) {
+                        print(e.message);
+                      }
                     },
                   ),
                   Align(
