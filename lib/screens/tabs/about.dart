@@ -25,7 +25,7 @@ class Abouttab extends StatelessWidget {
                 borderRadius: BorderRadius.circular(10),
               ),
               child: Text(
-                "Commodo id nostrud quis tempor. Dolor officia cillum  dolore. Velit nostrud magna incididunt Lorem elit et veniam est sint pariatur eu consectetur Lorem occaecat.",
+                "With all the measures taken around the world to keep your loved ones in touch, we keep the loved one closer than before no matter how far they might be.",
                 style: TextStyle(
                     fontSize: 18,
                     fontWeight: FontWeight.bold,

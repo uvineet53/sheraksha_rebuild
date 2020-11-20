@@ -40,14 +40,13 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
       pages: [
         PageViewModel(
           title: "Safe and Secure",
-          body:
-              "Instead of having to buy an entire share, invest any amount you want.",
+          body: "Sheraksha is completely secure and works to keep you safe.",
           image: _buildImage('1'),
           decoration: pageDecoration,
         ),
         PageViewModel(
           title: "Made for You",
-          body: "Another beautiful body text for this example onboarding",
+          body: "Built for India by Indians, with love.",
           image: _buildImage('2'),
           footer: RaisedButton(
             onPressed: () {
@@ -69,7 +68,7 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
           bodyWidget: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: const [
-              Text("Id qui dolore do elit amet.", style: bodyStyle),
+              Text("Sheraksha is very easy to use.", style: bodyStyle),
             ],
           ),
           image: _buildImage('3'),

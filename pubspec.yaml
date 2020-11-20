@@ -35,6 +35,8 @@ dependencies:
   introduction_screen: null
   lit_firebase_auth: null
   lottie: ^0.7.0+1
+  sensors: ^0.4.2+6
+  shake: ^0.1.0
   shared_preferences: ^0.5.12+4
   twilio_flutter: ^0.0.5
 

@@ -3,11 +3,9 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:lottie/lottie.dart';
+import 'package:shake/shake.dart';
 import 'package:twilio_flutter/twilio_flutter.dart';
 import 'package:women_safety/config/palette.dart';
-import 'package:women_safety/screens/auth/auth.dart';
-import 'package:lit_firebase_auth/lit_firebase_auth.dart';
-import 'package:women_safety/screens/auth/widgets/background_painter.dart';
 import 'package:women_safety/screens/auth/widgets/title.dart';
 
 class Hometab extends StatefulWidget {
@@ -23,16 +21,10 @@ class _HometabState extends State<Hometab> with SingleTickerProviderStateMixin {
   void initState() {
     twilioFlutter = TwilioFlutter(
         accountSid: 'AC22703901849f7bfffb9203e85109ef87',
-        authToken: 'e8cb69ff245e156afca5c8c679ffe437',
+        authToken: 'bf63a51c94549efb05d5ab262eef366a',
         twilioNumber: '+12186561552');
 
     super.initState();
-  }
-
-  void sendSms() async {
-    twilioFlutter.sendSMS(
-        toNumber: '+917003850490',
-        messageBody: 'Hii everyone this is a demo of\nflutter twilio sms.');
   }
 
   @override
@@ -64,6 +56,34 @@ class _HometabState extends State<Hometab> with SingleTickerProviderStateMixin {
                         .collection('contacts')
                         .snapshots(),
                     builder: (context, snapshot) {
+                      shakedetect() async {
+                        Position position = await Geolocator.getCurrentPosition(
+                            desiredAccuracy: LocationAccuracy.high);
+                        int totalContacts = snapshot.data.documents.length;
+
+                        for (int i = 0; i < totalContacts; i++) {
+                          DocumentSnapshot document =
+                              snapshot.data.documents[i];
+                          twilioFlutter
+                              .sendSMS(
+                                  toNumber: document["number"],
+                                  messageBody:
+                                      'Hi, I am feeling unsafe. Could you please call me back? My current location is: https://www.google.com/maps/?q=${position.latitude},${position.longitude}')
+                              .then((value) {
+                            Scaffold.of(context).showSnackBar(SnackBar(
+                              content: Text("Message Sent"),
+                            ));
+                          }).catchError((e) =>
+                                  Scaffold.of(context).showSnackBar(SnackBar(
+                                    content: Text("Message Not Sent"),
+                                  )));
+                        }
+                      }
+
+                      ShakeDetector detector =
+                          ShakeDetector.autoStart(onPhoneShake: () {
+                        shakedetect();
+                      });
                       if (!snapshot.hasData)
                         return const Text('Retrieving Data...');
                       return Row(
@@ -80,10 +100,19 @@ class _HometabState extends State<Hometab> with SingleTickerProviderStateMixin {
                                 for (int i = 0; i < totalContacts; i++) {
                                   DocumentSnapshot document =
                                       snapshot.data.documents[i];
-                                  twilioFlutter.sendSMS(
-                                      toNumber: document["number"],
-                                      messageBody:
-                                          'Hi, I am feeling unsafe. Could you please call me back? My current co-ordinates are: ${position.latitude},${position.longitude}');
+                                  twilioFlutter
+                                      .sendSMS(
+                                          toNumber: document["number"],
+                                          messageBody:
+                                              'Hi, I am feeling unsafe. Could you please call me back? My current location is: https://www.google.com/maps/?q=${position.latitude},${position.longitude}')
+                                      .then((value) {
+                                    Scaffold.of(context).showSnackBar(SnackBar(
+                                      content: Text("Message Sent"),
+                                    ));
+                                  }).catchError((e) => Scaffold.of(context)
+                                              .showSnackBar(SnackBar(
+                                            content: Text("Message Not Sent"),
+                                          )));
                                 }
                               },
                               child: Container(
