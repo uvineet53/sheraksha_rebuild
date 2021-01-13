@@ -2,9 +2,9 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 import 'package:women_safety/config/palette.dart';
-import 'package:women_safety/screens/auth/widgets/background_painter.dart';
-import 'package:women_safety/screens/auth/widgets/title.dart';
 import 'package:women_safety/screens/contactInfo/contactForm.dart';
+import 'package:women_safety/widgets/background_painter.dart';
+import 'package:women_safety/widgets/title.dart';
 
 class ContactsTab extends StatefulWidget {
   @override

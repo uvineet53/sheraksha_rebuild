@@ -5,7 +5,7 @@ import 'package:women_safety/config/palette.dart';
 import 'package:women_safety/screens/tabs/about.dart';
 import 'package:women_safety/screens/tabs/contacts.dart';
 import 'package:women_safety/screens/tabs/hometab.dart';
-import 'auth/widgets/background_painter.dart';
+import 'package:women_safety/widgets/background_painter.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key key}) : super(key: key);
@@ -25,7 +25,6 @@ class _HomeScreenState extends State<HomeScreen>
 
   @override
   void initState() {
-    // TODO: implement initState
     _controller =
         AnimationController(vsync: this, duration: const Duration(seconds: 2));
     super.initState();

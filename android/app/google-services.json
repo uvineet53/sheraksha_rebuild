@@ -1,34 +1,33 @@
 {
   "project_info": {
-    "project_number": "301489697840",
-    "firebase_url": "https://sheraksha-9ae75.firebaseio.com",
-    "project_id": "sheraksha-9ae75",
-    "storage_bucket": "sheraksha-9ae75.appspot.com"
+    "project_number": "1035160827466",
+    "project_id": "sheraksha-a65d4",
+    "storage_bucket": "sheraksha-a65d4.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:301489697840:android:9408c8c186524def76a9f5",
+        "mobilesdk_app_id": "1:1035160827466:android:0cbd5aae41a1b544c4d8b3",
         "android_client_info": {
-          "package_name": "com.scivic.sheraksha"
+          "package_name": "com.cortexity.sheraksha"
         }
       },
       "oauth_client": [
         {
-          "client_id": "301489697840-2chdei6omgcktao5mqa1ccmp7kc7od9c.apps.googleusercontent.com",
+          "client_id": "1035160827466-6t8eddi60uk8r7vcivopv5ko833dce0a.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyAOyiNQUOAP47TTtdHUY0OfnWtM0xLR_n8"
+          "current_key": "AIzaSyCxzLKX1oEv_NGW9Vi8RETimV1Tf_pcBIQ"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "301489697840-2chdei6omgcktao5mqa1ccmp7kc7od9c.apps.googleusercontent.com",
+              "client_id": "1035160827466-6t8eddi60uk8r7vcivopv5ko833dce0a.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

@@ -1,12 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:lottie/lottie.dart';
 import 'package:shake/shake.dart';
 import 'package:twilio_flutter/twilio_flutter.dart';
 import 'package:women_safety/config/palette.dart';
-import 'package:women_safety/screens/auth/widgets/title.dart';
+import 'package:women_safety/widgets/title.dart';
 
 class Hometab extends StatefulWidget {
   @override

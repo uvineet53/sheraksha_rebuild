@@ -1,4 +1,4 @@
-package com.scivic.sheraksha
+package com.cortexity.sheraksha
 
 import io.flutter.embedding.android.FlutterActivity
 

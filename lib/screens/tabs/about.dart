@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 import 'package:women_safety/config/palette.dart';
-import 'package:women_safety/screens/auth/auth.dart';
-import 'package:lit_firebase_auth/lit_firebase_auth.dart';
-import 'package:women_safety/screens/auth/widgets/title.dart';
+import 'package:women_safety/services/authentication_service.dart';
+import 'package:women_safety/widgets/title.dart';
 
 class Abouttab extends StatelessWidget {
   @override
@@ -43,8 +42,7 @@ class Abouttab extends StatelessWidget {
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(10)),
                       onPressed: () {
-                        context.signOut();
-                        Navigator.of(context).push(AuthScreen.route);
+                        Auth().signOut();
                       },
                       child: Text(
                         'Sign out'.toUpperCase(),
