@@ -7,9 +7,11 @@ Widget logoBuilder() {
       "assets/logo_bg.png",
       height: 300,
     ).box.makeCentered(),
-    HStack([
-      "she".text.xl5.wider.extraBold.white.make(),
-      "raksha".text.xl5.wider.white.make(),
-    ]).centered(),
+    mainTitle,
   ]).centered();
 }
+
+var mainTitle = HStack([
+  "she".text.xl5.wider.extraBold.white.make(),
+  "raksha".text.xl5.wider.white.make(),
+]).centered();

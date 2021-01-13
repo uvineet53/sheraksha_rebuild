@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_snake_navigationbar/flutter_snake_navigationbar.dart';
+import 'package:velocity_x/velocity_x.dart';
 
 SnakeBarBehaviour snakeBarStyle = SnakeBarBehaviour.floating;
 
@@ -28,3 +29,24 @@ List<Color> containerColors = [
   Color(0xFFF4E4CE),
   Color(0xFFE7EEED),
 ];
+
+List<Widget> appBarList = [
+  contactsTab,
+  homeTab,
+  aboutTab,
+];
+
+var homeTab = HStack([
+  "She".text.xl4.wider.extraBold.white.make(),
+  "raksha".text.xl4.wider.white.make(),
+]).centered();
+
+var contactsTab = HStack([
+  "Your".text.xl4.wider.extraBold.white.make(),
+  "Contacts".text.xl4.wider.white.make(),
+]).centered();
+
+var aboutTab = HStack([
+  "About".text.xl4.wider.extraBold.white.make(),
+  "Us".text.xl4.wider.white.make(),
+]).centered();

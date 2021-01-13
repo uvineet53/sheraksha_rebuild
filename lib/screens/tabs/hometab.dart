@@ -35,10 +35,6 @@ class _HometabState extends State<Hometab> with SingleTickerProviderStateMixin {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
-                SizedBox(
-                  height: 15,
-                ),
-                LoginTitle(title: "Sheraksha"),
                 Lottie.asset("assets/shake.json",
                     width: MediaQuery.of(context).size.width * .9),
                 Text(

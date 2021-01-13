@@ -46,10 +46,6 @@ class _ContactsTabState extends State<ContactsTab>
           Center(
             child: Column(
               children: [
-                SizedBox(
-                  height: 35,
-                ),
-                LoginTitle(title: "Contacts"),
                 Lottie.asset("assets/contact.json"),
                 SizedBox(
                   height: 200,

@@ -1,12 +1,9 @@
 import 'package:cached_video_player/cached_video_player.dart';
 import 'package:flutter/material.dart';
 import 'package:velocity_x/velocity_x.dart';
-import 'package:women_safety/screens/authForms.dart';
-import 'package:women_safety/services/authentication_service.dart';
+import 'package:women_safety/widgets/authForms.dart';
 import 'package:women_safety/config/validators.dart';
-import 'package:women_safety/widgets/authButtons.dart';
 import 'package:women_safety/widgets/background_motion_overlay.dart';
-import 'package:women_safety/widgets/customFormField.dart';
 import 'package:women_safety/widgets/logoBuilder.dart';
 
 class SignInForm extends StatefulWidget {

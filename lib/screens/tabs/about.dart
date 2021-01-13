@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 import 'package:women_safety/config/palette.dart';
 import 'package:women_safety/services/authentication_service.dart';
-import 'package:women_safety/widgets/title.dart';
 
 class Abouttab extends StatelessWidget {
   @override
@@ -11,10 +10,6 @@ class Abouttab extends StatelessWidget {
       child: Center(
         child: Column(
           children: [
-            SizedBox(
-              height: 35,
-            ),
-            LoginTitle(title: "About Us"),
             Lottie.asset("assets/about.json"),
             Container(
               margin: EdgeInsets.all(15),
