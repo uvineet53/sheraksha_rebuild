@@ -50,3 +50,16 @@ var aboutTab = HStack([
   "About".text.xl4.wider.extraBold.white.make(),
   "Us".text.xl4.wider.white.make(),
 ]).centered();
+
+var logoutDialogText = Text(
+  "Logout",
+  style: TextStyle(
+    color: Colors.white,
+    fontWeight: FontWeight.bold,
+  ),
+)
+    .box
+    .padding(EdgeInsets.symmetric(horizontal: 12, vertical: 7))
+    .black
+    .rounded
+    .make();

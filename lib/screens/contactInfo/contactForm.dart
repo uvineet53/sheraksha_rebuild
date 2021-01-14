@@ -1,7 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:provider/provider.dart';
 import 'package:women_safety/config/palette.dart';
+import 'package:women_safety/models/user.dart';
 
 TextEditingController _nameController = new TextEditingController();
 
@@ -139,9 +141,14 @@ class ContactSave extends StatelessWidget {
   }
 
   saveContact(BuildContext context) async {
+    KUser user = Provider.of<KUser>(context, listen: false);
     try {
-      await FirebaseFirestore.instance.collection("contacts").add(
-          {"name": _nameController.text, "number": _numberController.text});
+      await FirebaseFirestore.instance
+          .collection("users")
+          .doc(user.email)
+          .collection("contacts")
+          .add(
+              {"name": _nameController.text, "number": _numberController.text});
       print("Success!");
       _nameController.text = "";
       _numberController.text = "";

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_snake_navigationbar/flutter_snake_navigationbar.dart';
 import 'package:get/get.dart';
-import 'package:velocity_x/velocity_x.dart';
 import 'package:women_safety/config/constants.dart';
 import 'package:women_safety/config/palette.dart';
 import 'package:women_safety/screens/tabs/about.dart';
@@ -9,7 +8,7 @@ import 'package:women_safety/screens/tabs/contacts.dart';
 import 'package:women_safety/screens/tabs/hometab.dart';
 import 'package:women_safety/services/authentication_service.dart';
 import 'package:women_safety/widgets/background_painter.dart';
-import 'package:women_safety/widgets/logoBuilder.dart';
+import 'package:women_safety/widgets/drawerWidget.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key key}) : super(key: key);
@@ -26,9 +25,12 @@ class _HomeScreenState extends State<HomeScreen>
     with SingleTickerProviderStateMixin {
   int _selectedItemPosition = 1;
   AnimationController _controller;
+  PageController _pageController;
 
   @override
   void initState() {
+    _pageController = PageController(initialPage: 1);
+
     _controller =
         AnimationController(vsync: this, duration: const Duration(seconds: 2));
     super.initState();
@@ -47,7 +49,6 @@ class _HomeScreenState extends State<HomeScreen>
           title: appBarList[_selectedItemPosition],
           backgroundColor: Palette.darkBlue,
           elevation: 0.0,
-          leading: Icon(Icons.menu),
           actions: [
             IconButton(
               icon: Icon(Icons.logout),
@@ -64,9 +65,15 @@ class _HomeScreenState extends State<HomeScreen>
                 ),
               ),
             ),
-            widgetList[_selectedItemPosition],
+            PageView(
+                onPageChanged: (index) {
+                  setState(() => _selectedItemPosition = index);
+                },
+                controller: _pageController,
+                children: widgetList),
           ],
         ),
+        drawer: customDrawer(),
         bottomNavigationBar: SnakeNavigationBar.color(
           backgroundColor: Colors.white,
           behaviour: snakeBarStyle,
@@ -80,7 +87,13 @@ class _HomeScreenState extends State<HomeScreen>
           showUnselectedLabels: showUnselectedLabels,
           showSelectedLabels: showSelectedLabels,
           currentIndex: _selectedItemPosition,
-          onTap: (index) => setState(() => _selectedItemPosition = index),
+          onTap: (index) {
+            setState(() {
+              _selectedItemPosition = index;
+              _pageController.animateToPage(index,
+                  duration: Duration(milliseconds: 400), curve: Curves.easeIn);
+            });
+          },
           items: [
             BottomNavigationBarItem(icon: Icon(Icons.phone), label: 'tickets'),
             BottomNavigationBarItem(
@@ -99,19 +112,15 @@ class _HomeScreenState extends State<HomeScreen>
           Auth().signOut();
           Get.back();
         },
-        child: Text(
-          "Logout",
-          style: TextStyle(
-            color: Colors.white,
-            fontWeight: FontWeight.bold,
-          ),
-        )
-            .box
-            .padding(EdgeInsets.symmetric(horizontal: 12, vertical: 7))
-            .black
-            .rounded
-            .make(),
+        child: logoutDialogText,
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    _pageController.dispose();
+    _controller.dispose();
   }
 }
