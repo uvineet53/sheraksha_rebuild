@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_snake_navigationbar/flutter_snake_navigationbar.dart';
 import 'package:get/get.dart';
+import 'package:google_nav_bar/google_nav_bar.dart';
+import 'package:line_icons/line_icons.dart';
+import 'package:velocity_x/velocity_x.dart';
 import 'package:women_safety/config/constants.dart';
 import 'package:women_safety/config/palette.dart';
 import 'package:women_safety/screens/tabs/about.dart';
@@ -26,7 +29,8 @@ class _HomeScreenState extends State<HomeScreen>
   int _selectedItemPosition = 1;
   AnimationController _controller;
   PageController _pageController;
-
+  var padding = EdgeInsets.symmetric(horizontal: 18, vertical: 5);
+  double gap = 10;
   @override
   void initState() {
     _pageController = PageController(initialPage: 1);
@@ -45,62 +49,119 @@ class _HomeScreenState extends State<HomeScreen>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: appBarList[_selectedItemPosition],
-          backgroundColor: Palette.darkBlue,
-          elevation: 0.0,
-          actions: [
-            IconButton(
-              icon: Icon(Icons.logout),
-              onPressed: () => signOutWidget(),
-            ),
-          ],
-        ),
-        body: Stack(
-          children: [
-            SizedBox.expand(
-              child: CustomPaint(
-                painter: BackgroundPainter(
-                  animation: _controller,
-                ),
+      appBar: AppBar(
+        elevation: 0.0,
+        backgroundColor: Palette.darkBlue,
+        title: appBarList[_selectedItemPosition],
+        leading: Builder(
+          builder: (context) => GestureDetector(
+            onTap: () => Scaffold.of(context).openDrawer(),
+            child: Container(
+              margin: EdgeInsets.all(10),
+              decoration: BoxDecoration(
+                  color: Colors.black, borderRadius: BorderRadius.circular(10)),
+              child: Icon(
+                Icons.menu,
               ),
             ),
-            PageView(
-                onPageChanged: (index) {
-                  setState(() => _selectedItemPosition = index);
-                },
-                controller: _pageController,
-                children: widgetList),
-          ],
+          ),
         ),
-        drawer: customDrawer(),
-        bottomNavigationBar: SnakeNavigationBar.color(
-          backgroundColor: Colors.white,
-          behaviour: snakeBarStyle,
-          snakeShape: SnakeShape.circle,
-          shape: bottomBarShape,
-          padding: EdgeInsets.symmetric(horizontal: 15, vertical: 8),
-          snakeViewColor: Palette.darkBlue,
-          selectedItemColor:
-              snakeShape == SnakeShape.indicator ? selectedColor : null,
-          unselectedItemColor: Palette.lightBlue,
-          showUnselectedLabels: showUnselectedLabels,
-          showSelectedLabels: showSelectedLabels,
-          currentIndex: _selectedItemPosition,
-          onTap: (index) {
-            setState(() {
-              _selectedItemPosition = index;
-              _pageController.animateToPage(index,
-                  duration: Duration(milliseconds: 400), curve: Curves.easeIn);
-            });
-          },
-          items: [
-            BottomNavigationBarItem(icon: Icon(Icons.phone), label: 'tickets'),
-            BottomNavigationBarItem(
-                icon: Icon(Icons.home), label: 'microphone'),
-            BottomNavigationBarItem(icon: Icon(Icons.info), label: 'search')
-          ],
-        ));
+        actions: [
+          IconButton(
+            icon: Icon(
+              Icons.logout,
+              color: Colors.white,
+            ),
+            onPressed: () => Auth().signOut(),
+          )
+        ],
+      ),
+      body: Stack(
+        children: [
+          SizedBox.expand(
+            child: CustomPaint(
+              painter: BackgroundPainter(
+                animation: _controller,
+              ),
+            ),
+          ),
+          PageView(
+              onPageChanged: (index) {
+                setState(() => _selectedItemPosition = index);
+              },
+              controller: _pageController,
+              children: widgetList),
+        ],
+      ),
+      drawer: customDrawer(),
+      bottomNavigationBar: Container(
+        margin: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+        decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.all(Radius.circular(100)),
+            boxShadow: [
+              BoxShadow(
+                  spreadRadius: -10,
+                  blurRadius: 60,
+                  color: Colors.black.withOpacity(.4),
+                  offset: Offset(0, 25))
+            ]),
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 3.0, vertical: 3),
+          child: GNav(
+              curve: Curves.easeOutExpo,
+              duration: Duration(milliseconds: 900),
+              tabs: [
+                GButton(
+                  gap: gap,
+                  iconActiveColor: Colors.purple,
+                  iconColor: Colors.black,
+                  textColor: Colors.purple,
+                  backgroundColor: Colors.purple.withOpacity(.2),
+                  iconSize: 24,
+                  padding: padding,
+                  icon: LineIcons.user,
+                  // textStyle: t.textStyle,
+                  text: 'Contacts',
+                ),
+                GButton(
+                  gap: gap,
+                  iconActiveColor: Colors.pink,
+                  iconColor: Colors.black,
+                  textColor: Colors.pink,
+                  backgroundColor: Colors.pink.withOpacity(.2),
+                  iconSize: 24,
+                  padding: padding,
+                  icon: LineIcons.home,
+                  text: 'Home',
+                ),
+                GButton(
+                  gap: gap,
+                  iconActiveColor: Colors.amber[600],
+                  iconColor: Colors.black,
+                  textColor: Colors.amber[600],
+                  backgroundColor: Colors.amber[600].withOpacity(.2),
+                  iconSize: 24,
+                  padding: padding,
+                  icon: LineIcons.info_circle,
+                  text: 'About',
+                ),
+              ],
+              selectedIndex: _selectedItemPosition,
+              onTabChange: (index) {
+                // _debouncer.run(() {
+
+                print(index);
+                setState(() {
+                  _selectedItemPosition = index;
+                  // badge = badge + 1;
+                });
+                _pageController.jumpToPage(index);
+                // });
+              }),
+        ),
+      ),
+    );
   }
 
   signOutWidget() {

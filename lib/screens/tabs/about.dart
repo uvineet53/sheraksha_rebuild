@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
 import 'package:women_safety/config/palette.dart';
 import 'package:women_safety/services/authentication_service.dart';
@@ -10,7 +11,7 @@ class Abouttab extends StatelessWidget {
       child: Center(
         child: Column(
           children: [
-            Lottie.asset("assets/about.json"),
+            Lottie.asset("assets/about.json", height: Get.height * .55),
             Container(
               margin: EdgeInsets.all(15),
               padding: EdgeInsets.all(10),
@@ -26,30 +27,26 @@ class Abouttab extends StatelessWidget {
                     color: Colors.white),
               ),
             ),
-            Row(
-              children: [
-                Expanded(
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 15.0),
-                    child: MaterialButton(
-                      height: 55,
-                      color: Palette.darkBlue,
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10)),
-                      onPressed: () {
-                        Auth().signOut();
-                      },
-                      child: Text(
-                        'Sign out'.toUpperCase(),
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.w900,
-                            fontSize: 18),
-                      ),
-                    ),
-                  ),
+            Container(
+              margin: EdgeInsets.symmetric(horizontal: 15),
+              child: MaterialButton(
+                padding: EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+                minWidth: double.infinity,
+                height: 55,
+                color: Palette.darkBlue,
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(15)),
+                onPressed: () {
+                  Auth().signOut();
+                },
+                child: Text(
+                  'Sign out'.toUpperCase(),
+                  style: TextStyle(
+                      color: Colors.white,
+                      fontWeight: FontWeight.w900,
+                      fontSize: 20),
                 ),
-              ],
+              ),
             ),
           ],
         ),

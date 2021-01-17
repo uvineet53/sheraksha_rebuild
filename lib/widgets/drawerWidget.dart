@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:velocity_x/velocity_x.dart';
 
 Widget customDrawer() {
   return Drawer(
     child: ListView(
-      // Important: Remove any padding from the ListView.
       padding: EdgeInsets.zero,
       children: <Widget>[
         Padding(
@@ -22,14 +20,12 @@ Widget customDrawer() {
         SizedBox(
           height: 35,
         ),
-        Text(
-          "\"She believed\n she could\n and so she did\"",
-          textAlign: TextAlign.left,
-          style: GoogleFonts.greatVibes(
-              textStyle: TextStyle(
-            fontSize: 44,
-          )),
-        ).box.makeCentered(),
+        Text("\"She believed\n she could\n and so she did\"",
+            textAlign: TextAlign.left,
+            style: TextStyle(
+              fontFamily: "Great Vibes",
+              fontSize: 44,
+            )).box.makeCentered(),
         SizedBox(
           height: 25,
         ),

@@ -19,6 +19,9 @@ class MyApp extends StatelessWidget {
     return StreamProvider<KUser>.value(
       value: Auth().user,
       child: GetMaterialApp(
+        theme: ThemeData(
+          scaffoldBackgroundColor: Colors.white,
+        ),
         home: AuthenticationWrapper(),
       ),
     );

@@ -77,8 +77,8 @@ class _HometabState extends State<Hometab>
                     Position position = await Geolocator.getCurrentPosition(
                         desiredAccuracy: LocationAccuracy.high);
                     int totalContacts = snapshot.data.documents.length;
-                    for (int i = 0; i < totalContacts; i++) {
-                      DocumentSnapshot document = snapshot.data.documents[i];
+                    for (var document
+                        in snapshot.data.documents[totalContacts]) {
                       await telephony.sendSms(
                           to: document["number"],
                           message:
